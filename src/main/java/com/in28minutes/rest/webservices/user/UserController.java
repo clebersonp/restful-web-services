@@ -2,6 +2,7 @@ package com.in28minutes.rest.webservices.user;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,13 @@ public class UserController {
 	
 	@GetMapping(path = "/{id}")
 	public User getUserById(@PathVariable final Long id) {
-		return this.service.findOne(id);
+		final Optional<User> userOptional = this.service.findOne(id);
+		
+		if (!userOptional.isPresent()) {
+			throw new UserNotFoundException(String.format("User id - %d", id));
+		}
+		
+		return userOptional.get();
 	}
 	
 	@PostMapping

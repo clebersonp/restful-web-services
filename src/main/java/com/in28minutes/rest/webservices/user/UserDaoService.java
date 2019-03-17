@@ -3,6 +3,7 @@ package com.in28minutes.rest.webservices.user;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Component;
 
@@ -32,8 +33,8 @@ public class UserDaoService {
 		return user;
 	}
 	
-	public User findOne(Long id) {
-		return users.stream().filter(u -> u.getId().equals(id)).findFirst().orElse(null);
+	public Optional<User> findOne(Long id) {
+		return users.stream().filter(u -> u.getId().equals(id)).findFirst();
 	}
 	
 	private static Long getNextVal() {
