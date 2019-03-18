@@ -1,5 +1,8 @@
 package com.in28minutes.rest.webservices.user;
 
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
+
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -7,6 +10,8 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,13 +35,22 @@ public class UserController {
 	}
 	
 	@GetMapping(path = "/{id}")
-	public User getUserById(@PathVariable final Long id) {
+	public Resource<User> getUserById(@PathVariable final Long id) {
 		final Optional<User> userOptional = this.service.findOne(id);
 		
 		if (!userOptional.isPresent()) {
 			throw new UserNotFoundException(String.format("User id - %d", id));
 		}
-		return userOptional.get();
+		
+		final User user = userOptional.get();
+		
+		Resource<User> resource = new Resource<>(user);
+		Link linkToAllUsers = linkTo(methodOn(this.getClass()).getUsers()).withRel("all-users");
+		Link linkToDeleteUser = linkTo(methodOn(this.getClass()).deleteUserBy(user.getId())).withRel("delete-user");
+		
+		resource.add(linkToAllUsers, linkToDeleteUser);
+		
+		return resource;
 	}
 	
 	@PostMapping
