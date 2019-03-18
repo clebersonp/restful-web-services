@@ -4,6 +4,8 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,7 +40,7 @@ public class UserController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<Object> saveUser(@RequestBody final User user) {
+	public ResponseEntity<Object> saveUser(@Valid @RequestBody final User user) {
 		User userSaved = this.service.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userSaved.getId()).toUri();
 		return ResponseEntity.created(location).build();
