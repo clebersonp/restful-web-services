@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,14 +34,22 @@ public class UserController {
 		if (!userOptional.isPresent()) {
 			throw new UserNotFoundException(String.format("User id - %d", id));
 		}
-		
 		return userOptional.get();
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> saveUser(@RequestBody final User user) {
+	public ResponseEntity<Object> saveUser(@RequestBody final User user) {
 		User userSaved = this.service.save(user);
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userSaved.getId()).toUri();
 		return ResponseEntity.created(location).build();
+	}
+	
+	@DeleteMapping(path = "/{id}")
+	public ResponseEntity<Object> deleteUserBy(@PathVariable final Long id) {
+		
+		if (!this.service.deleteBy(id)) {
+			throw new UserNotFoundException(String.format("User id - %d", id));
+		}
+		return ResponseEntity.noContent().build();
 	}
 }

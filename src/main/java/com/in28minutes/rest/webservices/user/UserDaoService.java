@@ -23,7 +23,7 @@ public class UserDaoService {
 		return users;
 	}
 	
-	public User save(User user) {
+	public User save(final User user) {
 		if (user != null) {
 			if (user.getId() == null) {
 				user.setId(UserDaoService.getNextVal());
@@ -33,11 +33,15 @@ public class UserDaoService {
 		return user;
 	}
 	
-	public Optional<User> findOne(Long id) {
+	public Optional<User> findOne(final Long id) {
 		return users.stream().filter(u -> u.getId().equals(id)).findFirst();
 	}
 	
 	private static Long getNextVal() {
 		return ++countUsers;
+	}
+
+	public boolean deleteBy(final Long id) {
+		return users.removeIf(u -> u.getId().equals(id));
 	}
 }
