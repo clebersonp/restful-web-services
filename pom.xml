@@ -20,6 +20,13 @@
 	</properties>
 
 	<dependencies>
+	
+<!-- 		Aceitar binding em xml no request e no response -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+	
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
