@@ -21,7 +21,17 @@
 
 	<dependencies>
 	
-<!-- 	Swagger 2 -->
+		<!-- Monitorando a aplicacao com actuator e Hal browser -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-rest-hal-browser</artifactId>
+		</dependency>
+	
+		<!-- Swagger 2 -->
 		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
@@ -33,7 +43,7 @@
 			<version>2.9.2</version>
 		</dependency>
 	
-<!-- 		Aceitar binding em xml no request e no response -->
+		<!-- Aceitar binding em xml no request e no response -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-xml</artifactId>
