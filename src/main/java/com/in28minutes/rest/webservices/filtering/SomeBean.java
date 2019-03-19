@@ -1,9 +1,12 @@
 package com.in28minutes.rest.webservices.filtering;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonFilter;
 
 // remover de forma static do json os campos
-@JsonIgnoreProperties(value = { "field1", "field2" })
+//@JsonIgnoreProperties(value = { "field1", "field2" })
+
+//usando o filtro criado o FilteringController para ignorar alguns campos
+@JsonFilter(value = "SomeBeanFilter")
 public class SomeBean {
 
 	private String field1;
