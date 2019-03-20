@@ -22,10 +22,10 @@
 	<dependencies>
 	
 		<!-- Security -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency> -->
 		
 		<!-- Monitorando a aplicacao com actuator e Hal browser -->
 		<dependency>
