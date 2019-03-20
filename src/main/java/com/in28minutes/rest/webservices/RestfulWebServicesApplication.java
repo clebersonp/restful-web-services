@@ -39,5 +39,4 @@ public class RestfulWebServicesApplication {
 //		messageSource.setBasename("messages");
 //		return messageSource;
 //	}
-
 }
